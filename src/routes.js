@@ -13,8 +13,13 @@ import Login from './routes/login/Login.svelte'
 import VerifyLoginCode from './routes/login/VerifyCode.svelte'
 import Update from './routes/login/Update.svelte'
 
+// profile
+import Profile from './routes/profile/Profile.svelte'
+import ChangePassword from './routes/profile/ChangePassword.svelte'
+import ChangePasscode from './routes/profile/ChangePasscode.svelte'
+
 // student
-import Student from './routes/student/Student.svelte'
+import Subject from './routes/student/Subject.svelte'
 
 export default {
     '/': Home,
@@ -30,5 +35,9 @@ export default {
     '/login/verify-code': VerifyLoginCode,
     '/login/update': Update,
 
-    '/student/:subjectID': Student,
+    '/student/:subjectID': Subject,
+
+    '/profile': Profile,
+    '/profile/change-password': ChangePassword,
+    '/profile/change-passcode': ChangePasscode,
 };
