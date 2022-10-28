@@ -9,12 +9,12 @@
 		token.set(localStorage.getItem('token'))
 		info.set(JSON.parse(localStorage.getItem('userInfo')))
 
-		// if (!$info) {
-		// 	push("/login")
-		// }
-		// if (!$token) {
-		// 	push("/login/update")
-		// }
+		if (!$info) {
+			push("/login")
+		}
+		if (!$token) {
+			push("/login/update")
+		}
 	})
 </script>
 

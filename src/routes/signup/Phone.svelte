@@ -39,7 +39,7 @@
   <ErrorMessage />
 
   <Next {active} onClick={async () => {
-    await signupBasic(lastName, firstName, phone)
+    await signupBasic($lastName, $firstName, phone)
   }} />
 
   <Previous onClick={pop} />

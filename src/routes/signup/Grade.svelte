@@ -27,7 +27,7 @@
     </div>
     <div class="line">
       <span>Clasa: </span>
-      <InputSelectGrade list={['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']} bind:value={gradeNumber} />
+      <InputSelectGrade list={['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J']} bind:value={gradeLetter} />
     </div>
   </div>
   <Previous onClick={pop} />
@@ -35,6 +35,8 @@
     await signupGrade(gradeNumber, gradeLetter);
   }} />
 </main>
+
+{gradeNumber} - {gradeLetter}
 
 <style scoped>
   #container {
