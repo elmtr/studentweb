@@ -1,83 +1,60 @@
 <script>
-  
-  import axios from 'axios';
-  import { link, location } from 'svelte-spa-router';
+  import {writable} from 'svelte/store';
 
-  import { tokenConfig, apiURL } from '../../axiosConfig';
-  import {token, truancies, draftMarks} from '../../stores';
+  import {token} from '../../stores';
+
+  import {
+    fetchSubjects
+  } from '../../fetch/fetch'
+
+  // kiui
+  import Points from '../../kiui/Dashboard/Points.svelte'
+  import Marks from '../../kiui/Dashboard/Marks.svelte'
+  import DraftMarks from '../../kiui/Dashboard/DraftMarks.svelte'
+  import Truancies from '../../kiui/Dashboard/Truancies.svelte'
+  import HeaderBack from '../../kiui/HeaderBack.svelte'
+
+  let subject = writable({})
 
   export let params = {}
 
-  async function loadPoints() {
-    const {data} = await axios.get(
-      `${apiURL}/v1/student/points?subjectID=${params.subjectID}`,
-      tokenConfig($token),
-    )
+  function selectSubject(subjects) {
+    for (let index in subjects) {
+      let selSubject = subjects[index] 
+      if (selSubject.key === params.subjectKey) {
+        subject.set(selSubject)
+      }
+    }
 
-    return data
-  }
-
-  async function loadDraftMarks() {
-    const {data} = await axios.get(
-      `${apiURL}/v1/student/draftMarks?subjectID=${params.subjectID}`,
-      tokenConfig($token),
-    )
-    draftMarks.set(data)
-    return data
-  }
-
-  async function loadMarks() {
-    const {data} = await axios.get(
-      `${apiURL}/v1/student/marks?subjectID=${params.subjectID}`,
-      tokenConfig($token),
-    )
-    return data
-  }
-
-  async function loadTruancies() {
-    const {data} = await axios.get(
-      `${apiURL}/v1/student/truancies?subjectID=${params.subjectID}`,
-      tokenConfig($token),
-    )
-    truancies.set(data)
-    return data
-  }
-
+    return ''
+  } 
 </script>
 
+<HeaderBack />
 
-<h1>points</h1>
-{#await loadPoints() then points}
-  {points.value}
+{#await fetchSubjects($token, params.gradeKey) then subjects}
+  {selectSubject(subjects)}
+  <div id="heading">
+    {$subject.name}
+  </div>
 {/await}
 
+<Points subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false}  />
 
-<h1>draft marks</h1>
-{#await loadDraftMarks() then draftMarks}
-  {#each draftMarks as draftMark}
-    {draftMark.value} - {draftMark.dateDay}.{draftMark.dateMonth}
-    <br>
-  {/each}
-{/await}
+<DraftMarks subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false} />
 
-<h1>marks</h1>
-{#await loadMarks() then marks}
-  {#each marks as mark}
-    {mark.value} - {mark.dateDay}.{mark.dateMonth}<br>
-  {/each}
-{/await}
+<Marks subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false}  />
 
-<h1>truancies</h1>
-{#await loadTruancies() then truancies}
-  {#each truancies as truancy}
-    {#if truancy.motivated}
-      {truancy.motivated ? "motivata" : "nemotivata"} - 
-      {truancy.dateDay}.{truancy.dateMonth}<br>
-    {:else} 
-      <a href="{$location}/motivate/{truancy.id}" use:link>
-        {truancy.motivated ? "motivata" : "nemotivata"} - 
-        {truancy.dateDay}.{truancy.dateMonth}
-      </a><br>
-    {/if}
-  {/each}
-{/await}
+<Truancies subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false}  />
+
+<style scoped>
+  #heading {
+    font-size: 2em;
+		color: var(--black);
+		margin-left: 18px;
+		margin-top: 10px;
+		margin-bottom: 15px;
+		font-weight: 700;
+		font-family: var(--sans-serif);
+  }
+</style>

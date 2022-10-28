@@ -1,30 +1,46 @@
 <script>
+  
+  import {signupBasic} from '../../fetch/signup'
+  import {pop} from 'svelte-spa-router'
+  import {lastName, firstName, errorMessage} from '../../stores'
 
-  import axios from 'axios'
-  import {tokenConfig, apiURL} from '../../axiosConfig'
-  import {push} from 'svelte-spa-router'
+  // kiui
+  import Title from '../../kiui/Title.svelte'
+  import ErrorMessage from '../../kiui/ErrorMessage.svelte'
+  import Header from '../../kiui/Header.svelte'
+  import InputText from '../../kiui/Inputs/InputText.svelte'
+  import Next from '../../kiui/Inputs/Next.svelte'
+  import Previous from '../../kiui/Inputs/Previous.svelte'
+  import { onMount } from 'svelte'
 
-  let phone
-
-  async function submit() {
-    try {
-      const {data} = await axios.post(
-        `${apiURL}/v1/student/signup/phone`,
-        {phone},
-        tokenConfig(localStorage.getItem("userToken"))
-      )
-      localStorage.setItem("phone", phone)
-
-      push('/signup/verify-code')
-    } catch(error) {
-      console.log(error.response.data.message)
+  let phone = ""
+  let active = false
+  $: {
+    if (phone.length === 10) {
+      active = true
+      console.log($lastName + " " + $firstName)
+    } else {
+      active = false
+      console.log($lastName + " " + $firstName)
     }
   }
+
+  onMount(() => {
+    $errorMessage = ""
+  })
 
 </script>
 
 <main>
-  <input name="phone" placeholder="phone" type="text" bind:value={phone}>
+  <Header />
+  <Title value="Sigur nu ești robot? 🤖" />
+  <InputText preinput="+4" label="Numarul de telefon" placeholder="ex. 0712345678" bind:value={phone} />
 
-  <input type="submit" value="submit" on:click={submit}/>
+  <ErrorMessage />
+
+  <Next {active} onClick={async () => {
+    await signupBasic(lastName, firstName, phone)
+  }} />
+
+  <Previous onClick={pop} />
 </main>

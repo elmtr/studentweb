@@ -1,7 +1,8 @@
 <script>
   
-  import {passcode} from '../../stores'
+  import { signupPasscode } from '../../fetch/signup'
   import {pop} from 'svelte-spa-router'
+  import {passcode} from '../../stores'
   
   // kiui
   import Passcode from '../../kiui/Passcode.svelte'
@@ -13,31 +14,33 @@
   import Previous from '../../kiui/Inputs/Previous.svelte'
   import Next from '../../kiui/Inputs/Next.svelte'
 
-  import { push } from 'svelte-spa-router'
 
   let active = false
+  let checkPasscode = ""
 
   $: {
-    if ($passcode.length === 4) {
+    if (checkPasscode === $passcode && checkPasscode !== "") {
       active = true
     } else {
       active = false
     }
+
+    console.log($passcode)
   }
   
 </script>
 
 <main>
   <Header />
-  <Title value="Creează-ți un PIN" />
+  <Title value="Verifică PIN-ul" />
   <div style="height: 20px;"></div>
-  <Passcode value={$passcode} />
+  <Passcode value={checkPasscode} />
 
   <div style="height: 100px;"></div>
-  <KeyPad bind:value={$passcode} length={4} okButton={false} />
+  <KeyPad bind:value={checkPasscode} length={4} okButton={false} />
 
   <Previous onClick={pop} />
   <Next {active} onClick={async () => {
-    push("/signup/check-passcode")
+    await signupPasscode($passcode)
   }} />
 </main>

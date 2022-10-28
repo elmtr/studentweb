@@ -1,32 +1,61 @@
 <script>
 
-  import axios from 'axios'
-  import {tokenConfig, apiURL} from '../../axiosConfig'
-  import {push} from 'svelte-spa-router'
+  import { signupVerifyCode } from '../../fetch/signup'
+  import {onMount} from 'svelte'
+  import {push, pop} from 'svelte-spa-router'
+
+  // kiui
+  import Header from '../../kiui/Header.svelte'
+  import Title from '../../kiui/Title.svelte'
+  import KeyPad from '../../kiui/Inputs/KeyPad.svelte'
+  import Code from '../../kiui/Code.svelte'
+  import ErrorMessage from '../../kiui/ErrorMessage.svelte'
+
+  import Previous from '../../kiui/Inputs/Previous.svelte'
+  import Next from '../../kiui/Inputs/Next.svelte'
   
-  let code
+  let code = ""
+  let phone = ""
 
-  async function submit() {
-    try {
-      let phone = localStorage.getItem("phone")
-      const {data} = await axios.post(
-        `${apiURL}/v1/student/signup/verify-code`,
-        {phone, code},
-        tokenConfig(localStorage.getItem("userToken"))
-      )
-      localStorage.setItem("userToken", data.token)
-      localStorage.setItem("userInfo", JSON.stringify(data.student))
+  let active = false
 
-      push('/signup/grade')
-    } catch(error) {
-      console.log(error.response.data.message)
+  onMount(() => {
+    phone = localStorage.getItem("phone")
+    if (!phone) {
+      push("/signup/basic")
+    }
+  })
+
+  $: {
+    if (code.length === 6) {
+      active = true
+    } else {
+      active = false
     }
   }
-
+  
 </script>
 
 <main>
-  <input name="verify-code" placeholder="verify-code" type="text" bind:value={code} />
+  <Header />
+  <Title value="Introdu codul de pe SMS" />
 
-  <input type="submit" value="submit" on:click={submit}/>
+  <Code value={code} />
+  <div style="height: 10px;"></div>
+  <ErrorMessage />
+
+  <div id="spacing"></div>
+  <KeyPad bind:value={code} length={6} okButton={false} />
+
+  <Previous onClick={pop} />
+  <Next {active} onClick={async () => {
+    await signupVerifyCode(phone, code)
+  }} />
 </main>
+
+<style scoped>
+  #spacing {
+    height: 100px;
+    width: 100%;
+  }
+</style>

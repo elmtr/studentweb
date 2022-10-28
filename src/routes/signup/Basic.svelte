@@ -1,33 +1,33 @@
 <script>
+  import { pop, push } from 'svelte-spa-router'
+  import {lastName, firstName} from '../../stores'
 
-  import axios from 'axios'
-  import {config, apiURL} from '../../axiosConfig'
-  import {push} from 'svelte-spa-router'
+  // kiui
+  import InputText from '../../kiui/Inputs/InputText.svelte'
+  import Title from '../../kiui/Title.svelte'
+  import Header from '../../kiui/Header.svelte'
+  import Next from '../../kiui/Inputs/Next.svelte'
+  import Previous from '../../kiui/Inputs/Previous.svelte'
 
-  let firstName
-  let lastName
-
-  async function submit() {
-    try {
-      const {data} = await axios.post(
-        `${apiURL}/v1/student/signup/basic`,
-        {firstName, lastName},
-        config
-      )
-      localStorage.setItem('userInfo', JSON.stringify(data.student))
-      localStorage.setItem('userToken', data.token)
-      push('/signup/phone')
-    } catch(error) {
-      console.log(error.response.data.message)
+  let active = false
+  $: {
+    if (lastName !== "" && firstName !== "") {
+      active = true
+    } else {
+      active = false
     }
   }
-
 </script>
 
 <main>
-  <br>
-  <input name="firstName" placeholder="firstName" type="text" bind:value={firstName}>
-  <input name="lastName" placeholder="lastName" type="text" bind:value={lastName}>
+  <Header />
+  <Title value="Hai să ne cunoaștem!" />
+  <InputText preinput="" label="Nume" placeholder="ex. Popescu" bind:value={$lastName} />
+  <InputText preinput="" label="Prenume" placeholder="ex. Ion" bind:value={$firstName} />
 
-  <input type="submit" value="submit" on:click={submit}/>
+  <Next {active} onClick={async () => {
+    push('/signup/phone')
+  }} />
+
+  <Previous onClick={pop} />
 </main>

@@ -1,31 +1,59 @@
-<script>
+<script>  
+  import { loginVerifyCode } from '../../fetch/login'
+  import {onMount} from 'svelte'
+  import {push, pop} from 'svelte-spa-router'
 
-  import axios from 'axios'
-  import {config, apiURL} from '../../axiosConfig'
-  import {push} from 'svelte-spa-router'
+  // kiui
+  import Header from '../../kiui/Header.svelte'
+  import Title from '../../kiui/Title.svelte'
+  import KeyPad from '../../kiui/Inputs/KeyPad.svelte'
+  import Code from '../../kiui/Code.svelte'
+  import ErrorMessage from '../../kiui/ErrorMessage.svelte'
 
-  let code
+  import Previous from '../../kiui/Inputs/Previous.svelte'
+  import Next from '../../kiui/Inputs/Next.svelte'
+  
+  let code = ""
+  let phone = ""
 
-  async function submit() {
-    try {
-      let phone = localStorage.getItem('phone')
-      const {data} = await axios.post(
-        `${apiURL}/v1/student/login/verify-code`,
-        {phone, code},
-        config
-      )
-      localStorage.setItem('userInfo', JSON.stringify(data.student))
-      push('/login/update')
-    } catch(error) {
-      console.log(error.response.data.message)
+  let active = false
+
+  onMount(() => {
+    phone = localStorage.getItem("phone")
+    if (!phone) {
+      push("/login")
+    }
+  })
+
+  $: {
+    if (code.length === 6) {
+      active = true
+    } else {
+      active = false
     }
   }
-
 </script>
 
 <main>
-  <br>
-  <input name="code" placeholder="code" type="text" bind:value={code}>
+  <Header />
+  <Title value="Introdu codul de pe SMS" />
 
-  <input type="submit" value="submit" on:click={submit}/>
+  <Code value={code} />
+  <div style="height: 10px;"></div>
+  <ErrorMessage />
+
+  <div id="spacing"></div>
+  <KeyPad bind:value={code} length={6} okButton={false} />
+
+  <Previous onClick={pop} />
+  <Next {active} onClick={async () => {
+    await loginVerifyCode(code)
+  }} />
 </main>
+
+<style scoped>
+  #spacing {
+    height: 100px;
+    width: 100%;
+  }
+</style>

@@ -1,30 +1,164 @@
 <script>
 
-  import axios from 'axios'
-  import {tokenConfig, apiURL} from '../../axiosConfig'
-  import {push} from 'svelte-spa-router'
+  import { signupPassword } from '../../fetch/signup'
+  import {pop} from 'svelte-spa-router'
   
-  let password
+  // kiui
+  import Header from '../../kiui/Header.svelte'
+  import Title from '../../kiui/Title.svelte'
+  
 
-  async function submit() {
-    try {
-      const {data} = await axios.post(
-        `${apiURL}/v1/student/signup/password`,
-        {password},
-        tokenConfig(localStorage.getItem("userToken"))
-      )
-      localStorage.setItem("userInfo", JSON.stringify(data.student))
+  import InputPassword from '../../kiui/Inputs/InputPassword.svelte'
+  import Previous from '../../kiui/Inputs/Previous.svelte'
+  import Next from '../../kiui/Inputs/Next.svelte'
 
-      push('/signup/passcode')
-    } catch(error) {
-      console.log(error.response.data.message)
+  let password = ""
+  let checkPassword = ""
+
+  let active = false
+
+  let reqLength = false
+  let reqDigit = false
+  let reqSpecialChar = false
+
+  $: {
+    if (password === checkPassword 
+      && password !== "" 
+      && reqDigit 
+      && reqSpecialChar 
+      && reqLength
+    ) {
+      active = true
+    } else {
+      active = false
     }
   }
 
+
+
+  $: {
+    const digits = [0,1,2,3,4,5,6,7,8,9]
+    reqDigit = digits.some(digit => password.includes(digit))
+
+    const specialChars = ['!', '@', '#', '$', '%', '^', '&', '*', '.', '-', '_', '+', '=']
+    reqSpecialChar = specialChars.some(char => password.includes(char))
+
+    reqLength = password.length >= 12
+  }
+  
 </script>
 
 <main>
-  <input name="password" placeholder="password" type="text" bind:value={password}>
+  <Header />
+  <Title value="Acum poți să-ți creezi o parolă" />
+  
+  <InputPassword 
+    preinput="" 
+    label="Parola" 
+    placeholder="ex. 1Motocoasa.Circuit#Triplu23" 
+    bind:value={password} 
+  />
+  <InputPassword 
+    discoverable={false}
+    preinput="" 
+    label="Confirmă parola" 
+    placeholder="(aceeași cu cea de sus)" 
+    bind:value={checkPassword} 
+  />
 
-  <input type="submit" value="submit" on:click={submit}/>
+  <div id="indications">
+    <span id="title">O parola ar trebui sa aiba: </span>
+    <div class="requirement">
+      <div class="req-status req-done">
+        {#if reqLength}
+          <img src="/img/location-lightgreen.png" alt="">
+        {:else}
+          <img src="/img/location-darkgreen.png" alt="">
+        {/if}
+      </div>
+      <div class="req-text">
+        Cel putin 12 caractere
+      </div>
+    </div>
+    <div class="requirement">
+      <div class="req-status req-done">
+        {#if reqDigit}
+          <img src="/img/location-lightgreen.png" alt="">
+        {:else}
+          <img src="/img/location-darkgreen.png" alt="">
+        {/if}
+      </div>
+      <div class="req-text">
+        Cel putin o cifra <br>
+        (ex. de la 0 la 9)
+      </div>
+    </div>
+
+    <div class="requirement">
+      <div class="req-status req-done">
+        {#if reqSpecialChar}
+          <img src="/img/location-lightgreen.png" alt="">
+        {:else}
+          <img src="/img/location-darkgreen.png" alt="">
+        {/if}
+      </div>
+      <div class="req-text">
+        Cel putin un caracter special <br>
+        (ex. !@#$%^&*.-_+=)
+      </div>
+    </div>
+  </div>
+
+  <Previous onClick={pop} />
+  <Next {active} onClick={async () => {
+    await signupPassword(password);
+  }} />
 </main>
+
+<style scoped>
+  #indications {
+    width: 90%;
+    box-sizing: border-box;
+    margin: auto;
+
+    padding: 10px;
+  }
+
+  #title {
+    color: var(--black);
+    font-family: var(--sans-serif);
+  }
+  
+  .requirement {
+    margin-top: 10px;
+    width: 100%;
+    box-sizing: border-box;
+    position: relative;
+    color: var(--black);
+    font-family: var(--sans-serif);
+  }
+
+  .req-status {
+    box-sizing: border-box;
+    padding: 10px 0;
+    width: 20px;
+
+    position: relative;
+  }
+
+  .req-status img {
+    width: 80%;
+    height: 80%;
+  }
+
+  .req-text {
+    box-sizing: border-box;
+    padding: 10px 0;
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    -ms-transform: translateY(-50%);
+    transform: translateY(-50%);
+  }
+</style>

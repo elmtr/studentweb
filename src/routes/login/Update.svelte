@@ -1,12 +1,13 @@
 <script>
 
-  import axios from 'axios'
-  import {tokenConfig, apiURL} from '../../axiosConfig'
   import {push} from 'svelte-spa-router'
-  import {token, info} from '../../stores'
   import {onMount} from 'svelte'
+  import {loginUpdate} from '../../fetch/login'
+    
+  // kiui
+  import KeyPad from '../../kiui/Inputs/KeyPad.svelte'
 
-  let passcode
+  let passcode = ""
   let phone
   
   onMount(() => {
@@ -16,31 +17,94 @@
     }
   })
 
-  async function submit() {
-    try {
-      const {data} = await axios.post(
-        `${apiURL}/v1/student/login/update`,
-        {phone, passcode},
-        tokenConfig(localStorage.getItem("userToken"))
-      )
-      localStorage.setItem("userInfo", JSON.stringify(data.student))
-      token.set(data.token)
-      info.set(data.student)
-
-      // keep it logged in
-      localStorage.setItem("token", data.token)
-
-      
-      push('/')
-    } catch(error) {
-      console.log(error.response.data.message)
-    }
-  }
-
 </script>
 
 <main>
-  <input name="passcode" placeholder="passcode" type="text" bind:value={passcode} />
+  <div id="container">
+    <div id="passcode">
+      <div class="digit-container">
+        {#if passcode.length > 0}
+          <div class="digit digit-on"></div>
+        {:else}
+          <div class="digit"></div>
+        {/if}
+      </div>
 
-  <input type="submit" value="submit" on:click={submit}/>
+      <div class="digit-container">
+        {#if passcode.length > 1}
+          <div class="digit digit-on"></div>
+        {:else}
+          <div class="digit"></div>
+        {/if}
+      </div>
+
+      <div class="digit-container">
+        {#if passcode.length > 2}
+          <div class="digit digit-on"></div>
+        {:else}
+          <div class="digit"></div>
+        {/if}
+      </div>
+
+      <div class="digit-container">
+        {#if passcode.length > 3}
+          <div class="digit digit-on"></div>
+        {:else}
+          <div class="digit"></div>
+        {/if}
+      </div>
+    </div>
+  </div><br>
+
+  <div id="spacing"></div>
+
+  <KeyPad length={4} bind:value={passcode} onClick={async () => {
+    await loginUpdate(phone, passcode)
+  }}/>
 </main>
+
+<style scoped>
+  #spacing {
+    width: 100%;
+    height: 100px;
+  }
+
+  #container {
+    width: 100%;
+    height: 30px;
+    margin: auto;
+    margin-top: 60px;
+  }
+
+  #passcode {
+    width: 20%;
+    height: 100%;
+    margin-left: 40%;
+
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .digit-container {
+    flex: 25%;
+    position: relative;
+  }
+
+  .digit {
+    width: 10px;
+    height: 10px;
+    border-radius: 100%;
+    border: var(--border);
+
+    margin: 0;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    -ms-transform: translate(-50%, -50%);
+    transform: translate(-50%, -50%);
+  }
+  
+  .digit-on {
+    background: var(--darkgreen);
+  }
+</style>
