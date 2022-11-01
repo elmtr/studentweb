@@ -4,13 +4,21 @@
 	<meta charset='utf-8'>
 	<meta name='viewport' content='width=device-width,initial-scale=1'>
 
-	<title>Svelte app</title>
+	<title>elmtree - elev</title>
 
-	<link rel='icon' type='image/png' href='/favicon.png'>
+	<link rel='icon' type='image/png' href='/icon-192x192.png'>
 	<link rel='stylesheet' href='/build/bundle.css'>
 	<link rel='stylesheet' href='/reset.css'>
+	<link rel="manifest" href="/manifest.json">
 
 	<script defer src='/build/bundle.js'></script>
+
+	<script>
+		if ('serviceWorker' in navigator) {
+			navigator.serviceWorker.register('sw.js')
+		}
+	</script>
+
 	<style>
 		body {
 			background: var(--offwhite);
