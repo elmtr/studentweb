@@ -51,7 +51,7 @@
 
   <Heading title={"Schimba PIN-ul"} />
 
-  <InputPassword preinput="" label="PIN vechi" placeholder="PIN veche" bind:value={passcode} />
+  <InputPassword preinput="" label="PIN vechi" placeholder="PIN vechi" bind:value={passcode} />
   <InputPassword preinput="" label="PIN nou" placeholder="ex. 1234" bind:value={newPasscode} />
   <InputPassword preinput="" label="Verifică PIN nou" placeholder="ex. 1234" bind:value={newPasscodeCheck} />
 
