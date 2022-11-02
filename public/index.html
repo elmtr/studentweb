@@ -1,32 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset='utf-8'>
-	<meta name='viewport' content='width=device-width,initial-scale=1'>
+	<head>
+		<meta charset='utf-8'>
+		<meta name='viewport' content='width=device-width,initial-scale=1'>
 
-	<title>elmtree - elev</title>
+		<!-- build -->
+		<script defer src='/build/bundle.js'></script>
+		<link rel='stylesheet' href='/build/bundle.css'>
 
-	<link rel='icon' type='image/png' href='/icon-192x192.png'>
-	<link rel='stylesheet' href='/build/bundle.css'>
-	<link rel='stylesheet' href='/reset.css'>
-	<link rel="manifest" href="/manifest.json">
+		<!-- styling -->
+		<title>elmtree - elev</title>
+		<link rel='icon' type='image/png' href='/icon-192x192.png'>
+		<link rel='stylesheet' href='/reset.css'>
+		<link rel="manifest" href="/manifest.json">
 
-	<script defer src='/build/bundle.js'></script>
+		<script>
+			if ('serviceWorker' in navigator) {
+				navigator.serviceWorker.register('sw.js')
+			}
+		</script>
 
-	<script>
-		if ('serviceWorker' in navigator) {
-			navigator.serviceWorker.register('sw.js')
-		}
-	</script>
+		<style>
+			body {
+				background: var(--offwhite);
+			}
+		</style>
+	</head>
 
-	<style>
-		body {
-			background: var(--offwhite);
-		}
-	</style>
-</head>
-
-
-<body>
-</body>
+	<body></body>
 </html>
