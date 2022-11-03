@@ -48,7 +48,7 @@
 
 <style scoped>
   #container {
-    width: 100%;
+    width: var(--container);
     position: fixed;
     background: var(--offwhite);
     z-index: 10;

@@ -16,7 +16,9 @@
 </script>
 
 <main>
-	<Router {routes} />
+	<div style="width: var(--container); margin: auto;">
+		<Router {routes} />
+	</div>
 </main>
 
 <style>
