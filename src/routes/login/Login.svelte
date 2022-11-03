@@ -2,6 +2,7 @@
 
   import {login} from '../../fetch/login'
   import {link} from 'svelte-spa-router'
+  import {phoneNumber} from '../../stores'
 
   // kiui
   import InputNumber from '../../kiui/Inputs/InputNumber.svelte'
@@ -27,6 +28,7 @@
   <div id="submit-container">
     <SubmitButton value="Conectează-te" onClick={async () => {
       await login("0" + phone.toString(), password)
+      $phoneNumber = '0' + phone.toString()
     }} />
   </div>
 

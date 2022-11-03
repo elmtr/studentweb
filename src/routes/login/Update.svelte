@@ -3,6 +3,7 @@
   import {push} from 'svelte-spa-router'
   import {onMount} from 'svelte'
   import {loginUpdate} from '../../fetch/login'
+  import {info} from '../../stores'
     
   // kiui
   import KeyPad from '../../kiui/Inputs/KeyPad.svelte'
@@ -10,21 +11,11 @@
   import ErrorMessage from '../../kiui/ErrorMessage.svelte'
 
   let passcode = ""
-  let phone
-  let name
-  
-  onMount(() => {
-    phone = localStorage.getItem("phone")
-    name = JSON.parse(localStorage.getItem("userInfo")).firstName
-    if (phone == null) {
-      push("/welcome")
-    }
-  })
 
 </script>
 
 <main>
-  <Heading title="Bună, {name} 👋" />
+  <Heading title="Bună, {$info.firstName} 👋" />
   <div id="container">
     <div id="passcode">
       <div class="digit-container">
@@ -69,10 +60,11 @@
 
   <div id="keypad-container">
     <KeyPad length={4} bind:value={passcode} onClick={async () => {
-      await loginUpdate(phone, passcode)
+      await loginUpdate($info.phone, passcode)
       passcode = ""
     }}/>
   </div>
+
 </main>
 
 <style scoped>

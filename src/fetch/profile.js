@@ -11,7 +11,7 @@ export async function changePassword(password, newPassword) {
       {password, newPassword},
       tokenConfig(get(token)),
     )
-    localStorage.setItem('userInfo', JSON.stringify(data))
+    localStorage.setItem('info', JSON.stringify(data))
     pop()
   } catch(error) {
     console.log(error.response.data.message)
@@ -25,7 +25,7 @@ export async function changePasscode(passcode, newPasscode) {
       {passcode, newPasscode},
       tokenConfig(get(token)),
     )
-    localStorage.setItem('userInfo', JSON.stringify(data))
+    localStorage.setItem('info', JSON.stringify(data))
     
     pop()
   } catch(error) {

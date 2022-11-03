@@ -4,7 +4,7 @@
 
 
   onMount(() => {
-    localStorage.removeItem("userInfo")
+    localStorage.removeItem("info")
     localStorage.removeItem("phone")
     localStorage.removeItem("token")
 

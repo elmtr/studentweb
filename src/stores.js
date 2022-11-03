@@ -14,10 +14,12 @@ export const today = writable(days[d.getDay()])
 export const now = writable(d.getHours() + d.getMinutes() / 100)
 // export const now = writable(8.05)
 
-// signup
+// signup && login
 export const passcode = writable("")
 export const lastName = writable("")
 export const firstName = writable("")
+
+export const phoneNumber = writable("")
 
 export const errorMessage = writable("")
 export const warningMessage = writable("")

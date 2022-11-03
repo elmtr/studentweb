@@ -14,16 +14,8 @@
   import Next from '../../kiui/Inputs/Next.svelte'
   
   let code = ""
-  let phone = ""
 
   let active = false
-
-  onMount(() => {
-    phone = localStorage.getItem("phone")
-    if (!phone) {
-      push("/login")
-    }
-  })
 
   $: {
     if (code.length === 6) {
