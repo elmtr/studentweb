@@ -6,20 +6,25 @@
     
   // kiui
   import KeyPad from '../../kiui/Inputs/KeyPad.svelte'
+  import Heading from '../../kiui/Heading.svelte'
+  import ErrorMessage from '../../kiui/ErrorMessage.svelte'
 
   let passcode = ""
   let phone
+  let name
   
   onMount(() => {
     phone = localStorage.getItem("phone")
+    name = JSON.parse(localStorage.getItem("userInfo")).firstName
     if (phone == null) {
-      push("/login")
+      push("/welcome")
     }
   })
 
 </script>
 
 <main>
+  <Heading title="Bună, {name} 👋" />
   <div id="container">
     <div id="passcode">
       <div class="digit-container">
@@ -54,16 +59,37 @@
         {/if}
       </div>
     </div>
+
+    <div id="error-container">
+      <ErrorMessage />
+    </div>
   </div><br>
 
   <div id="spacing"></div>
 
-  <KeyPad length={4} bind:value={passcode} onClick={async () => {
-    await loginUpdate(phone, passcode)
-  }}/>
+  <div id="keypad-container">
+    <KeyPad length={4} bind:value={passcode} onClick={async () => {
+      await loginUpdate(phone, passcode)
+      passcode = ""
+    }}/>
+  </div>
 </main>
 
 <style scoped>
+  #keypad-container {
+    width: var(--container);
+    height: 350px;
+    margin: auto;
+    position: fixed; 
+    bottom: 0;
+  }
+
+  #error-container {
+    width: 100%;
+    text-align: center;
+    margin-top: 20px;
+  }
+
   #spacing {
     width: 100%;
     height: 100px;
@@ -73,7 +99,7 @@
     width: 100%;
     height: 30px;
     margin: auto;
-    margin-top: 60px;
+    margin-top: 120px;
   }
 
   #passcode {

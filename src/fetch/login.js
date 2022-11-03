@@ -1,7 +1,7 @@
 import axios from "axios"
 import { push } from "svelte-spa-router";
 import { config, tokenConfig, apiURL } from '../axiosConfig';
-import {token, info} from '../stores'
+import {token, info, errorMessage} from '../stores'
 
 export async function login(phone, password) {
   try {
@@ -13,7 +13,7 @@ export async function login(phone, password) {
     localStorage.setItem('phone', phone)
     push('/login/verify-code')
   } catch(error) {
-    console.log(error.response.data.message)
+    errorMessage.set(error.response.data.message)
   }
 }
 
@@ -28,7 +28,7 @@ export async function loginVerifyCode(code) {
     localStorage.setItem('userInfo', JSON.stringify(data.student))
     push('/login/update')
   } catch(error) {
-    console.log(error.response.data.message)
+    errorMessage.set(error.response.data.message)
   }
 }
 
@@ -48,6 +48,6 @@ export async function loginUpdate(phone, passcode) {
 
     push('/')
   } catch(error) {
-    console.log(error.response.data.message)
+    errorMessage.set(error.response.data.message)
   }
 }

@@ -9,6 +9,7 @@
   import SubmitButton from '../../kiui/Inputs/SubmitButton.svelte'
   import Header from '../../kiui/Header.svelte'
   import Title from '../../kiui/Title.svelte'
+  import ErrorMessage from '../../kiui/ErrorMessage.svelte'
 
   let phone
   let password
@@ -20,6 +21,8 @@
   <Title value="Salut! Ne-ai lipsit!" />
   <InputNumber preinput="+4" label="Numărul de telefon" placeholder="ex. 0712345678" bind:value={phone} />
   <InputPassword preinput="" label="Parola" placeholder="ex. 1Motocoasa.Circuit#Triplu23" bind:value={password} />
+
+  <ErrorMessage />
 
   <div id="submit-container">
     <SubmitButton value="Conectează-te" onClick={async () => {
