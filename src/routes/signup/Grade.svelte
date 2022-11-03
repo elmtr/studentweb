@@ -36,8 +36,6 @@
   }} />
 </main>
 
-{gradeNumber} - {gradeLetter}
-
 <style scoped>
   #container {
     width: 80%;

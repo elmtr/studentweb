@@ -34,10 +34,6 @@
 			<!-- navbar -->
 			<NavBar location="home" />
 
-			<div id="greeting">
-				Bună, {$info.firstName}! 👋
-			</div>
-
 			<!-- getting timetable (for widget) -->
 			{#await fetchTimetable($token) then timetable}
 				{#if timetable[$today]}
@@ -64,16 +60,6 @@
 </main>
 
 <style scoped>
-	#greeting {
-		font-size: 1.8em;
-		color: var(--black);
-		margin-left: 25px;
-		margin-top: 30px;
-		margin-bottom: 20px;
-		font-weight: 600;
-		font-family: var(--sans-serif);
-	}
-
 	#heading {
 		font-size: 1.5em;
 		color: var(--black);

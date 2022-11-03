@@ -1,7 +1,8 @@
 import axios from "axios"
 import { push } from "svelte-spa-router";
 import { tokenConfig, config, apiURL } from '../axiosConfig';
-import {errorMessage, token} from '../stores'
+import {errorMessage, token, info, phoneNumber} from '../stores'
+import {get} from 'svelte/store'
 
 export async function signupBasic(lastName, firstName, phone) {
   try {
@@ -10,8 +11,12 @@ export async function signupBasic(lastName, firstName, phone) {
       {lastName, firstName, phone},
       config
     )
+    phoneNumber.set(phone)
+    
     localStorage.setItem('info', JSON.stringify(data.student))
-    localStorage.setItem('token', data.token)
+    info.set(data.student)
+
+    token.set(data.token)
 
     push('/signup/verify-code')
   } catch(error) {
@@ -19,16 +24,19 @@ export async function signupBasic(lastName, firstName, phone) {
   }
 }
 
-export async function signupVerifyCode(phone, code) {
+export async function signupVerifyCode(code) {
   try {
-    let phone = localStorage.getItem("phone")
+    let phone = get(phoneNumber)
     const {data} = await axios.post(
       `${apiURL}/v1/student/signup/verify-code`,
       {phone, code},
-      tokenConfig(localStorage.getItem('token'))
+      tokenConfig(get(token))
     )
+    
     localStorage.setItem('info', JSON.stringify(data.student))
-    localStorage.setItem('token', data.token)
+    info.set(data.student)
+
+    token.set(data.token)
 
     push('/signup/grade')
   } catch(error) {
@@ -38,15 +46,16 @@ export async function signupVerifyCode(phone, code) {
 
 export async function signupGrade(gradeNumber, gradeLetter) {
   try {
-    let phone = localStorage.getItem("phone")
     const {data} = await axios.post(
       `${apiURL}/v1/student/signup/grade`,
       {gradeNumber, gradeLetter},
-      tokenConfig(localStorage.getItem('token'))
+      tokenConfig(get(token))
     )
-    localStorage.setItem('token', data.token)
     localStorage.setItem('info', JSON.stringify(data.student))
+    info.set(data.student)
 
+    token.set(data.token)
+      
     push('/signup/password')
   } catch(error) {
     errorMessage.set(error.response.data.message)
@@ -58,9 +67,10 @@ export async function signupPassword(password) {
     const {data} = await axios.post(
       `${apiURL}/v1/student/signup/password`,
       {password},
-      tokenConfig(localStorage.getItem('token'))
+      tokenConfig(get(token)),
     )
     localStorage.setItem('info', JSON.stringify(data.student))
+    info.set(data.student)
 
     push('/signup/passcode')
   } catch(error) {
@@ -73,10 +83,11 @@ export async function signupPasscode(passcode) {
     const {data} = await axios.post(
       `${apiURL}/v1/student/signup/passcode`,
       {passcode},
-      tokenConfig(localStorage.getItem('token'))
+      tokenConfig(get(token))
     )
     localStorage.setItem('info', JSON.stringify(data.student))
-    localStorage.removeItem('token')
+    info.set(data.student)
+
     token.set('')
 
     push('/welcome')
