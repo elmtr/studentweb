@@ -8,11 +8,11 @@ const days = [7, 1, 2, 3, 4, 5, 6]
 export const timetable = writable({});
 export const school = writable({});
 
-// export const today = writable(days[d.getDay()])
-export const today = writable(1)
+export const today = writable(days[d.getDay()])
+// export const today = writable(1)
 
-// export const now = writable(d.getHours() + d.getMinutes() / 100)
-export const now = writable(8.35)
+export const now = writable(d.getHours() + d.getMinutes() / 100)
+// export const now = writable(8.35)
 
 // signup && login
 export const passcode = writable("")
