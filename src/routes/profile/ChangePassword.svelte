@@ -63,25 +63,29 @@
   <div id="indications">
     <span id="title">O parola ar trebui sa aiba: </span>
     <div class="requirement">
-      <div class="req-status req-done">
-        {#if reqLength}
-          <img src="/img/location-lightgreen.png" alt="">
-        {:else}
-          <img src="/img/location-darkgreen.png" alt="">
-        {/if}
-      </div>
+      {#if reqLength}
+        <div class="req-status req-done">
+          <img src="/img/done.svg" alt="">
+        </div>
+      {:else}
+        <div class="req-status">
+          <img src="/img/bullet.svg" alt="">
+        </div>
+      {/if}
       <div class="req-text">
         Cel putin 12 caractere
       </div>
     </div>
     <div class="requirement">
-      <div class="req-status req-done">
-        {#if reqDigit}
-          <img src="/img/location-lightgreen.png" alt="">
-        {:else}
-          <img src="/img/location-darkgreen.png" alt="">
-        {/if}
-      </div>
+      {#if reqDigit}
+        <div class="req-status req-done">
+          <img src="/img/done.svg" alt="">
+        </div>
+      {:else}
+        <div class="req-status">
+          <img src="/img/bullet.svg" alt="">
+        </div>
+      {/if}
       <div class="req-text">
         Cel putin o cifra <br>
         (ex. de la 0 la 9)
@@ -89,13 +93,15 @@
     </div>
 
     <div class="requirement">
-      <div class="req-status req-done">
-        {#if reqSpecialChar}
-          <img src="/img/location-lightgreen.png" alt="">
-        {:else}
-          <img src="/img/location-darkgreen.png" alt="">
-        {/if}
-      </div>
+      {#if reqSpecialChar}
+        <div class="req-status req-done">
+          <img src="/img/done.svg" alt="">
+        </div>
+      {:else}
+        <div class="req-status">
+          <img src="/img/bullet.svg" alt="">
+        </div>
+      {/if}
       <div class="req-text">
         Cel putin un caracter special <br>
         (ex. !@#$%^&*.-_+=)
@@ -145,6 +151,11 @@
   .req-status img {
     width: 80%;
     height: 80%;
+    filter: var(--darkgreen-filter);
+  }
+
+  .req-done img {
+    filter: var(--lightgreen-filter);
   }
 
   .req-text {

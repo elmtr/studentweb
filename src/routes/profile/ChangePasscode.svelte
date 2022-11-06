@@ -7,6 +7,7 @@
   import {changePasscode} from '../../fetch/profile'
 
   // kiui
+  import SubmitButton from '../../kiui/Inputs/SubmitButton.svelte'
   import Next from '../../kiui/Inputs/Next.svelte'
   import InputPassword from '../../kiui/Inputs/InputPassword.svelte'
   import HeaderBack from '../../kiui/HeaderBack.svelte'
@@ -58,25 +59,29 @@
   <div id="indications">
     <span id="title">Un PIN ar trebui sa aiba: </span>
     <div class="requirement">
-      <div class="req-status req-done">
-        {#if reqLength}
-          <img src="/img/location-lightgreen.png" alt="">
-        {:else}
-          <img src="/img/location-darkgreen.png" alt="">
-        {/if}
-      </div>
+      {#if reqLength}
+        <div class="req-status req-done">
+          <img src="/img/done.svg" alt="">
+        </div>
+      {:else}
+        <div class="req-status">
+          <img src="/img/bullet.svg" alt="">
+        </div>
+      {/if}
       <div class="req-text">
         Exact 4 caractere
       </div>
     </div>
     <div class="requirement">
-      <div class="req-status req-done">
-        {#if reqDigits}
-          <img src="/img/location-lightgreen.png" alt="">
-        {:else}
-          <img src="/img/location-darkgreen.png" alt="">
-        {/if}
-      </div>
+      {#if reqDigits}
+        <div class="req-status req-done">
+          <img src="/img/done.svg" alt="">
+        </div>
+      {:else}
+        <div class="req-status">
+          <img src="/img/bullet.svg" alt="">
+        </div>
+      {/if}
       <div class="req-text">
         Doar cifre
       </div>
@@ -125,6 +130,11 @@
   .req-status img {
     width: 80%;
     height: 80%;
+    filter: var(--darkgree-filter);
+  }
+
+  .req-done img {
+    filter: var(--lightgreen-filter);
   }
 
   .req-text {

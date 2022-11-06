@@ -12,14 +12,14 @@
 <div id="sections">
   <a href="/profile/account/change-password" use:link>
     <div class="section">
-        <img src="/img/location-lightgreen.png" alt="">
+        <img src="/img/bullet.svg" alt="">
         <span>Schimbă parola</span>
     </div>
   </a>
 
   <a href="/profile/account/change-passcode" use:link>
     <div class="section">
-        <img src="/img/location-lightgreen.png" alt="">
+        <img src="/img/bullet.svg" alt="">
         <span>Schimbă PIN-ul</span>
     </div>
   </a>
@@ -61,6 +61,7 @@
   .section img {
     float: left;
     height: 20px;
+    filter: var(--lightgreen-filter);    
 
     margin: 0;
     position: absolute;

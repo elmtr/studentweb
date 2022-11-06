@@ -35,6 +35,7 @@
 		--white-filter: invert(100%) sepia(37%) saturate(0%) hue-rotate(232deg) brightness(105%) contrast(107%);
 		--offwhite: #F2F2F2;
 		--red: red;
+		--red-filter: invert(13%) sepia(96%) saturate(7497%) hue-rotate(1deg) brightness(101%) contrast(112%);
 		--yellow: yellow;
 		--border-radius: 20px;
 		--border: 1.5px solid var(--darkgreen);

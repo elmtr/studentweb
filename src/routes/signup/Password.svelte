@@ -7,7 +7,6 @@
   import Header from '../../kiui/Header.svelte'
   import Title from '../../kiui/Title.svelte'
   
-
   import InputPassword from '../../kiui/Inputs/InputPassword.svelte'
   import Previous from '../../kiui/Inputs/Previous.svelte'
   import Next from '../../kiui/Inputs/Next.svelte'
@@ -33,8 +32,6 @@
       active = false
     }
   }
-
-
 
   $: {
     const digits = [0,1,2,3,4,5,6,7,8,9]
@@ -69,25 +66,29 @@
   <div id="indications">
     <span id="title">O parola ar trebui sa aiba: </span>
     <div class="requirement">
-      <div class="req-status req-done">
-        {#if reqLength}
-          <img src="/img/location-lightgreen.png" alt="">
-        {:else}
-          <img src="/img/location-darkgreen.png" alt="">
-        {/if}
-      </div>
+      {#if reqLength}
+        <div class="req-status req-done">
+          <img src="/img/done.svg" alt="">
+        </div>
+      {:else}
+        <div class="req-status">
+          <img src="/img/bullet.svg" alt="">
+        </div>
+      {/if}
       <div class="req-text">
         Cel putin 12 caractere
       </div>
     </div>
     <div class="requirement">
-      <div class="req-status req-done">
-        {#if reqDigit}
-          <img src="/img/location-lightgreen.png" alt="">
-        {:else}
-          <img src="/img/location-darkgreen.png" alt="">
-        {/if}
-      </div>
+      {#if reqDigit}
+        <div class="req-status req-done">
+          <img src="/img/done.svg" alt="">
+        </div>
+      {:else}
+        <div class="req-status">
+          <img src="/img/bullet.svg" alt="">
+        </div>
+      {/if}
       <div class="req-text">
         Cel putin o cifra <br>
         (ex. de la 0 la 9)
@@ -95,13 +96,15 @@
     </div>
 
     <div class="requirement">
-      <div class="req-status req-done">
-        {#if reqSpecialChar}
-          <img src="/img/location-lightgreen.png" alt="">
-        {:else}
-          <img src="/img/location-darkgreen.png" alt="">
-        {/if}
-      </div>
+      {#if reqSpecialChar}
+        <div class="req-status req-done">
+          <img src="/img/done.svg" alt="">
+        </div>
+      {:else}
+        <div class="req-status">
+          <img src="/img/bullet.svg" alt="">
+        </div>
+      {/if}
       <div class="req-text">
         Cel putin un caracter special <br>
         (ex. !@#$%^&*.-_+=)

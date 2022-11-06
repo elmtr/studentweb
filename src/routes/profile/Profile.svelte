@@ -11,14 +11,14 @@
       {profile.firstName} {profile.lastName}
     </div> 
 
-    <div id="bonus">
+    <!-- <div id="bonus">
       <div id="bonus-title">Beneficiile mele</div>
-    </div> 
+    </div>  -->
 
     <div id="sections">
       <a href="/profile/account" use:link>
         <div class="section">
-            <img src="/img/location-lightgreen.png" alt="">
+            <img src="/img/bullet.svg" alt="">
             <span>Contul meu </span>
         </div>
       </a>
@@ -26,7 +26,7 @@
 
     <a href="/profile/logout" use:link>
       <div id="logout">
-        <img src="/img/location-lightgreen.png" alt="">
+        <img src="/img/logout.svg" alt="">
         <span>Deconectare</span>
       </div>
     </a>
@@ -36,7 +36,7 @@
 
 <style scoped>
   #heading {
-    font-size: 1.8em;
+    font-size: 1.5em;
 		color: var(--black);
 		margin-left: 25px;
 		margin-top: 30px;
@@ -45,7 +45,7 @@
 		font-family: var(--sans-serif);
   }
 
-  #bonus {
+  /* #bonus {
     background: var(--white);
     width: var(--width);
     height: 130px;
@@ -65,7 +65,7 @@
     font-weight: 600;
     font-family: var(--sans-serif);
     color: var(--black);
-  }
+  } */
 
   #sections {
     width: var(--width);
@@ -92,6 +92,7 @@
   .section img {
     float: left;
     height: 20px;
+    filter: var(--lightgreen-filter);
 
     margin: 0;
     position: absolute;
@@ -129,6 +130,7 @@
 
   #logout img {
     height: 20px;
+    filter: var(--red-filter);
 
     position: absolute;
     top: 50%;

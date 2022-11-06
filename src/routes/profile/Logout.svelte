@@ -9,8 +9,8 @@
     localStorage.removeItem('phone')
     localStorage.removeItem('token')
 
-    $info = {}
-    $token = ""
+    $info = null
+    $token = null
 
     push('/welcome')
   })
