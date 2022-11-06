@@ -24,12 +24,15 @@
 <style>
 	:root {
 		--darkgreen: #054D1B;
+		--darkgreen-filter: invert(21%) sepia(18%) saturate(2168%) hue-rotate(87deg) brightness(98%) contrast(97%);
 		--darkgreen-transparent: rgba(5, 77, 27, 0.6);
 		--lightgreen: #38E377;
+		--lightgreen-filter: invert(81%) sepia(13%) saturate(2385%) hue-rotate(80deg) brightness(94%) contrast(89%);
 		--lightgreen-transparent: rgba(56, 227, 119, 0.6);
 		--gray: #BDBDBD;
 		--black: #303030;
 		--white: white;
+		--white-filter: invert(100%) sepia(37%) saturate(0%) hue-rotate(232deg) brightness(105%) contrast(107%);
 		--offwhite: #F2F2F2;
 		--red: red;
 		--yellow: yellow;

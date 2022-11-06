@@ -9,6 +9,10 @@
     push("/login/update")
   }
 
+  if ($token) {
+    push("/")
+  }
+
 </script>
 
 <div id="image-banner">
