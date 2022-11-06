@@ -44,6 +44,15 @@ export async function fetchSubjects(token) {
       `${apiURL}/v1/student/subjects`,
       tokenConfig(token),
     )
+    data.sort((a, b) => {
+      if (a.ord > b.ord) {
+        return 1
+      }
+      if (a.ord < b.ord) {
+        return -1
+      }
+      return 0
+    })
     subjectsValue = data
     subjects.set(data)
   }
