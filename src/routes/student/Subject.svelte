@@ -13,6 +13,7 @@
   import DraftMarks from '../../kiui/Dashboard/DraftMarks.svelte'
   import Truancies from '../../kiui/Dashboard/Truancies.svelte'
   import HeaderBack from '../../kiui/HeaderBack.svelte'
+  import Loading from '../../kiui/Loading.svelte'
 
   let subject = writable({})
 
@@ -38,6 +39,8 @@
     {$subject.name}
   </div>
 {/await}
+  
+<Loading />
 
 <Points subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false}  />
 

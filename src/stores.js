@@ -21,6 +21,7 @@ export const firstName = writable("")
 
 export const phoneNumber = writable("")
 
+export const loading = writable(false)
 export const errorMessage = writable("")
 export const warningMessage = writable("")
 

@@ -8,6 +8,7 @@
   import InputNumber from '../../kiui/Inputs/InputNumber.svelte'
   import InputPassword from '../../kiui/Inputs/InputPassword.svelte'
   import SubmitButton from '../../kiui/Inputs/SubmitButton.svelte'
+  import Next from '../../kiui/Inputs/Next.svelte'
   import Header from '../../kiui/Header.svelte'
   import Title from '../../kiui/Title.svelte'
   import ErrorMessage from '../../kiui/ErrorMessage.svelte'
@@ -25,30 +26,36 @@
 
   <ErrorMessage />
 
-  <div id="submit-container">
+  <!-- <div id="submit-container">
     <SubmitButton value="Conectează-te" onClick={async () => {
       await login("0" + phone.toString(), password)
       $phoneNumber = '0' + phone.toString()
     }} />
-  </div>
+  </div> -->
 
   <div id="signup-link">
     Nu ai cont? <a href="/signup/basic" use:link>Creează unul acum.</a>
   </div>
+  <Next active={true} onClick={
+    async () => {
+      await login("0" + phone.toString(), password)
+      $phoneNumber = '0' + phone.toString()
+  }} />
 </main>
 
 <style scoped>
-  #submit-container {
+  /* #submit-container {
     width: 90%;
     margin: auto;
     margin-top: 40px;
-  }
+  } */
 
   #signup-link {
-    width: 100%;
+    width: 50%;
     height: 20px;
     position: fixed;
-    bottom: 20px;
+    bottom: 50px;
+    left: 10px;
 
     color: var(--darkgreen);
     font-family: var(--sans-serif);

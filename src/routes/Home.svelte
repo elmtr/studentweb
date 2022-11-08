@@ -11,6 +11,7 @@
 	import NextPeriod from '../kiui/Timetable/NextPeriod.svelte'
   import Subject from '../kiui/Subject.svelte'
   import NavBar from '../kiui/NavBar.svelte'
+  import Loading from '../kiui/Loading.svelte'
 	
 	if ($token == "") {
 		push("/login/update")
@@ -57,6 +58,7 @@
 			{/await}
 		{/await}	
 	{/if}
+	<Loading />
 </main>
 
 <style scoped>

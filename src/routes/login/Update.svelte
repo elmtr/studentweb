@@ -9,12 +9,14 @@
   import KeyPad from '../../kiui/Inputs/KeyPad.svelte'
   import Heading from '../../kiui/Heading.svelte'
   import ErrorMessage from '../../kiui/ErrorMessage.svelte'
+  import Loader from '../../kiui/PopUps/Loader.svelte'
 
-  let passcode = ""
+  let passcode = "0246"
 
 </script>
 
 <main>
+  <Loader />
   <Heading title="Bună, {$info.firstName} 👋" />
   <div id="container">
     <div id="passcode">

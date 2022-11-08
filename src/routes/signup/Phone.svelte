@@ -12,8 +12,9 @@
   import Next from '../../kiui/Inputs/Next.svelte'
   import Previous from '../../kiui/Inputs/Previous.svelte'
   import { onMount } from 'svelte'
+    import { writable } from 'svelte/store'
 
-  let phone = ""
+  let phone = "0723010405"
   let active = false
   $: {
     if (phone.length === 10) {
