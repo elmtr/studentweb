@@ -11,7 +11,7 @@
   import ErrorMessage from '../../kiui/ErrorMessage.svelte'
   import Loader from '../../kiui/PopUps/Loader.svelte'
 
-  let passcode = "0246"
+  let passcode = ""
 
 </script>
 
