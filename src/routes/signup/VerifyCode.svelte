@@ -35,18 +35,12 @@
   <div style="height: 10px;"></div>
   <ErrorMessage />
 
-  <div id="spacing"></div>
-  <KeyPad bind:value={code} length={6} okButton={false} />
+  <div style="width: 100%; position: fixed; top: 40%;">
+    <KeyPad bind:value={code} length={6} okButton={false} />
+  </div>
 
   <Previous onClick={pop} />
   <Next {active} onClick={async () => {
     await signupVerifyCode(code)
   }} />
 </main>
-
-<style scoped>
-  #spacing {
-    height: 100px;
-    width: 100%;
-  }
-</style>

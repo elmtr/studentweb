@@ -26,13 +26,6 @@
 
   <ErrorMessage />
 
-  <!-- <div id="submit-container">
-    <SubmitButton value="Conectează-te" onClick={async () => {
-      await login("0" + phone.toString(), password)
-      $phoneNumber = '0' + phone.toString()
-    }} />
-  </div> -->
-
   <div id="signup-link">
     Nu ai cont? <a href="/signup/basic" use:link>Creează unul acum.</a>
   </div>
@@ -44,12 +37,6 @@
 </main>
 
 <style scoped>
-  /* #submit-container {
-    width: 90%;
-    margin: auto;
-    margin-top: 40px;
-  } */
-
   #signup-link {
     width: 50%;
     height: 20px;
