@@ -37,7 +37,7 @@
     {#each intervals as interval}
       {#if periods[$day][interval].length > 0}
         {#each periods[$day][interval] as period}
-          <Period {period} />
+          <Period user="student" {period} />
         {/each}
       {/if}
     {/each}
