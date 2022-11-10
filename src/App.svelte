@@ -2,7 +2,7 @@
 	import Router, {push} from 'svelte-spa-router';
 	import routes from './routes';
 
-	import {token, info} from './stores';
+	import {token, info, now} from './stores';
 	import {onMount} from 'svelte';
 
 	let mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
@@ -17,6 +17,13 @@
 
 		push("/welcome")
 	})
+
+	// updating time
+	function updateTime() { 
+		let d = new Date()
+		$now = (d.getHours() + d.getMinutes() / 100).toFixed(2)
+	}
+	setInterval(updateTime, 60000)
 </script>
 
 <main>
