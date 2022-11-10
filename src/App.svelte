@@ -2,8 +2,9 @@
 	import Router, {push} from 'svelte-spa-router';
 	import routes from './routes';
 
-	import {token, info, now} from './stores';
+	import {token, info, now, interval, school} from './stores';
 	import {onMount} from 'svelte';
+  import { findInterval } from './utils/utils'
 
 	let mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
@@ -22,8 +23,12 @@
 	function updateTime() { 
 		let d = new Date()
 		$now = (d.getHours() + d.getMinutes() / 100).toFixed(2)
+
+		if ($school) {
+			$interval = findInterval($school.intervals, $now)
+		}
 	}
-	setInterval(updateTime, 60000)
+	setInterval(updateTime, 5000)
 </script>
 
 <main>

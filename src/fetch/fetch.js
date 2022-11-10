@@ -2,7 +2,8 @@ import axios from "axios"
 import { tokenConfig, apiURL } from '../axiosConfig';
 import {sortPeriods} from '../sort/sort'
 import {get} from 'svelte/store'
-import {subjects, draftMarks,  marks, truancies, timetable, school, loading} from '../stores'
+import {subjects, draftMarks,  marks, truancies, timetable, school, loading, interval, now, pointsValue} from '../stores'
+import { findInterval } from '../utils/utils'
 
 export async function fetchSchool(token) {
   let schoolValue = {}
@@ -17,6 +18,7 @@ export async function fetchSchool(token) {
     )
     loading.set(false)
     schoolValue = data
+    interval.set(findInterval(schoolValue.intervals, get(now)))
     school.set(schoolValue)
   }
 
@@ -108,6 +110,7 @@ export async function fetchPoints(token, subjectKey, studentKey) {
     tokenConfig(token),
   )
   loading.set(false)
+  pointsValue.set(data.value)
 
   return data
 }

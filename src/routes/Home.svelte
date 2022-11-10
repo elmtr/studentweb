@@ -1,29 +1,18 @@
 <script>
 	
-	import {token, today, now, subjects, grades, info} from '../stores'
+	import {token, today, interval} from '../stores'
 	import {push, link} from 'svelte-spa-router'
 	import {fetchSchool, fetchTimetable, fetchSubjects} from '../fetch/fetch'
-	import { findInterval } from '../utils/utils'
-	import { writable } from 'svelte/store'
 
 	// kiui
 	import CurrentPeriod from '../kiui/Timetable/CurrentPeriod.svelte'
 	import NextPeriod from '../kiui/Timetable/NextPeriod.svelte'
   import Subject from '../kiui/Subject.svelte'
   import NavBar from '../kiui/NavBar.svelte'
-  import Loading from '../kiui/Loading.svelte'
   import Loader from '../kiui/PopUps/Loader.svelte'
 
-	
 	if ($token == "") {
 		push("/login/update")
-	}
-
-	let interval = writable(1)
-
-	function setInterval(school) {
-		interval.set(findInterval(school.intervals, $now))
-		return ''
 	}
 
 </script>
@@ -32,21 +21,20 @@
 	<Loader />
 	{#if $token}
 		<!-- getting interval -->
-		{#await fetchSchool($token) then school}
-			{setInterval(school)}
+		{#await fetchSchool($token) then schoolData}
 		
 			<!-- navbar -->
 			<NavBar location="home" />
 
 			<!-- getting timetable (for widget) -->
-			{#await fetchTimetable($token) then timetable}
-				{#if timetable[$today]}
-					{#if timetable[$today][$interval]}
-						<CurrentPeriod user="student" timetable={timetable} day={$today} interval={$interval}/>
+			{#await fetchTimetable($token) then data}
+				{#if data[$today]}
+					{#if data[$today][$interval]}
+						<CurrentPeriod user="student"/>
 					{/if}
 					<br>
-					{#if timetable[$today][$interval + 1]}
-						<NextPeriod user="student" timetable={timetable} day={$today} interval={$interval + 1} />
+					{#if data[$today][$interval + 1]}
+						<NextPeriod user="student" />
 					{/if}
 				{/if}
 
@@ -61,7 +49,6 @@
 			{/await}
 		{/await}	
 	{/if}
-	<!-- <Loading /> -->
 </main>
 
 <style scoped>

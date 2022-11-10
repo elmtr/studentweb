@@ -46,7 +46,7 @@ export  function calcAverage(marks) {
 
 export function floatToHour(number) {
   let hour = ~~number
-  let minutes = Math.round((number % 1) * 100) 
+  let minutes = ("0" + Math.round((number % 1) * 100)).slice(-2)
 
   return hour + ":" + minutes
 }

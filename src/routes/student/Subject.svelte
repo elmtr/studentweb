@@ -1,10 +1,14 @@
 <script>
   import {writable} from 'svelte/store';
 
-  import {token} from '../../stores';
+  import {pointsValue, token} from '../../stores';
 
   import {
-    fetchSubjects
+    fetchDraftMarks,
+    fetchMarks,
+    fetchPoints,
+    fetchSubjects,
+    fetchTruancies
   } from '../../fetch/fetch'
 
   // kiui
@@ -14,6 +18,7 @@
   import Truancies from '../../kiui/Dashboard/Truancies.svelte'
   import HeaderBack from '../../kiui/HeaderBack.svelte'
   import Loading from '../../kiui/Loading.svelte'
+    import Loader from '../../kiui/Loader.svelte'
 
   let subject = writable({})
 
@@ -28,10 +33,21 @@
     }
 
     return ''
-  } 
+  }
+
+  async function reload() {
+    await fetchPoints($token, params.subjectKey, params.studentKey)
+    await fetchDraftMarks($token, params.subjectKey, params.studentKey)
+    await fetchMarks($token, params.subjectKey, params.studentKey)
+    await fetchTruancies($token, params.subjectKey, params.studentKey)
+  }
 </script>
 
 <HeaderBack />
+
+<div id="reload" on:click={reload}>
+  <img src="/img/reload.svg" alt="">
+</div>
 
 {#await fetchSubjects($token, params.gradeKey) then subjects}
   {selectSubject(subjects)}
@@ -40,15 +56,15 @@
   </div>
 {/await}
   
-<Loading />
+<Loader />
 
-<Points subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false}  />
+<Points subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false} />
 
 <DraftMarks subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false} />
 
-<Marks subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false}  />
+<Marks subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false} />
 
-<Truancies subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false}  />
+<Truancies subjectKey={params.subjectKey} studentKey={params.studentKey} mod={false} />
 
 <style scoped>
   #heading {
@@ -59,5 +75,22 @@
 		margin-bottom: 15px;
 		font-weight: 700;
 		font-family: var(--sans-serif);
+  }
+
+  #reload {
+    width: 40px;
+    height: 40px;
+    position: fixed;
+    top: 10px;
+    right: 10px;
+  }
+
+  #reload img {
+    filter: var(--darkgreen-filter);
+    width: 70%;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
   }
 </style>
