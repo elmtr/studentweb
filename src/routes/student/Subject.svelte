@@ -78,11 +78,11 @@
   }
 
   #reload {
-    width: 40px;
-    height: 40px;
+    width: 35px;
+    height: 35px;
     position: fixed;
-    top: 10px;
-    right: 10px;
+    top: 12px;
+    right: 15px;
   }
 
   #reload img {

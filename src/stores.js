@@ -45,6 +45,9 @@ export const pointsValue = writable(0)
 
 // -- dialog boxes
 
+// update
+export const showUpdate = writable(true);
+
 // truancy
 export const showMotivateTruancy = writable(false);
 export const showAddTruancy = writable(false);

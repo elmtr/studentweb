@@ -1,6 +1,5 @@
 <script>
 
-  import {push} from 'svelte-spa-router'
   import {onMount} from 'svelte'
   import {loginUpdate} from '../../fetch/login'
   import {info, loading, errorMessage} from '../../stores'
@@ -10,6 +9,7 @@
   import Heading from '../../kiui/Heading.svelte'
   import ErrorMessage from '../../kiui/ErrorMessage.svelte'
   import Loading from '../../kiui/Loading.svelte'
+    import { push } from 'svelte-spa-router'
 
   let passcode = ""
 
@@ -68,6 +68,10 @@
   <div id="keypad-container">
     <KeyPad length={4} bind:value={passcode} onClick={async () => {
       await loginUpdate($info.phone, passcode)
+
+      if ($errorMessage === "") {
+        push("/")
+      }
       passcode = ""
     }}/>
   </div>

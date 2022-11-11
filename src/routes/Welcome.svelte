@@ -5,13 +5,14 @@
   import {token, info} from '../stores'
   import {push} from 'svelte-spa-router'
 
-  if ($info && !$token) {
-    push("/login/update")
-  }
+  // if ($info && !$token) {
+  //   push("/login/update")
+  // }
 
-  if ($token) {
-    push("/")
-  }
+  // if ($token) {
+  //   push("/")
+  // }
+  push("/")
 
 </script>
 

@@ -59,8 +59,6 @@ export async function loginUpdate(phone, passcode) {
 
     // keep it logged in
     // localStorage.setItem("token", data.token)
-
-    push('/')
   } catch(error) {
     errorMessage.set(error.response.data.message)
     loading.set(false)

@@ -2,9 +2,10 @@
 	import Router, {push} from 'svelte-spa-router';
 	import routes from './routes';
 
-	import {token, info, now, interval, school} from './stores';
+	import {token, info, now, interval, school, showUpdate} from './stores';
 	import {onMount} from 'svelte';
   import { findInterval } from './utils/utils'
+  import Update from './kiui/PopUps/Update.svelte'
 
 	let mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
@@ -28,7 +29,12 @@
 			$interval = findInterval($school.intervals, $now)
 		}
 	}
+
 	setInterval(updateTime, 5000)
+
+	setInterval(() => {
+		$showUpdate = true
+	}, 180000) // 3 minutes in ms
 </script>
 
 <main>
@@ -38,6 +44,7 @@
 			<br><br> din păcate, va trebui sa folosești un telefon</div>
 		</div>
 	{/if}
+	<Update />
 	<div style="width: var(--container); margin: auto;">
 		<Router {routes} />
 	</div>
