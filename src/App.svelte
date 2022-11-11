@@ -21,20 +21,19 @@
 	})
 
 	// updating time
-	function updateTime() { 
+	setInterval(() => {
 		let d = new Date()
 		$now = (d.getHours() + d.getMinutes() / 100).toFixed(2)
 
 		if ($school) {
 			$interval = findInterval($school.intervals, $now)
 		}
-	}
+	}, 5000)
 
-	setInterval(updateTime, 5000)
-
+	// showing login update
 	setInterval(() => {
 		$showUpdate = true
-	}, 180000) // 3 minutes in ms
+	}, 3 * 60 * 1000) // 3 minutes in ms
 </script>
 
 <main>
@@ -44,7 +43,9 @@
 			<br><br> din păcate, va trebui sa folosești un telefon</div>
 		</div>
 	{/if}
-	<Update />
+	{#if $info && !$token}
+		<Update />
+	{/if}
 	<div style="width: var(--container); margin: auto;">
 		<Router {routes} />
 	</div>
