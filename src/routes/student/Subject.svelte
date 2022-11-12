@@ -78,16 +78,16 @@
   }
 
   #reload {
-    width: 35px;
-    height: 35px;
+    width: 60px;
+    height: 60px;
     position: fixed;
-    top: 12px;
-    right: 15px;
+    top: 0;
+    right: 5px;
   }
 
   #reload img {
     filter: var(--darkgreen-filter);
-    width: 70%;
+    width: 50%;
     position: relative;
     top: 50%;
     left: 50%;

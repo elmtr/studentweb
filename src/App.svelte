@@ -17,7 +17,7 @@
 
 		localStorage.removeItem("userInfo")
 
-		push("/welcome")
+		// push("/welcome")
 	})
 
 	// updating time
@@ -43,9 +43,9 @@
 			<br><br> din păcate, va trebui sa folosești un telefon</div>
 		</div>
 	{/if}
-	{#if $info && !$token}
+	<!-- {#if $info && !$token}
 		<Update />
-	{/if}
+	{/if} -->
 	<div style="width: var(--container); margin: auto;">
 		<Router {routes} />
 	</div>

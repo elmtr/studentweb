@@ -58,7 +58,7 @@ export async function loginUpdate(phone, passcode) {
     info.set(data.student)
 
     // keep it logged in
-    // localStorage.setItem("token", data.token)
+     localStorage.setItem("token", data.token)
   } catch(error) {
     errorMessage.set(error.response.data.message)
     loading.set(false)

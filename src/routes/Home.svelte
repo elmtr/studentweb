@@ -56,7 +56,7 @@
 		font-size: 1.5em;
 		color: var(--black);
 		margin-left: 30px;
-		margin-top: 30px;
+		margin-top: 15px;
 		margin-bottom: 5px;
 		font-weight: 600;
 		font-family: var(--sans-serif);
