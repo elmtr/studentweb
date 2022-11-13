@@ -87,7 +87,7 @@
 
   #reload img {
     filter: var(--darkgreen-filter);
-    width: 50%;
+    width: 45%;
     position: relative;
     top: 50%;
     left: 50%;

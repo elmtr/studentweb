@@ -11,10 +11,6 @@
   import NavBar from '../kiui/NavBar.svelte'
   import Loader from '../kiui/PopUps/Loader.svelte'
 
-	if ($token == "") {
-		push("/login/update")
-	}
-
 </script>
 
 <main>

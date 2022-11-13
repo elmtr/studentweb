@@ -15,7 +15,6 @@ import CheckPasscode from './routes/signup/CheckPasscode.svelte'
 // login
 import Login from './routes/login/Login.svelte'
 import VerifyLoginCode from './routes/login/VerifyCode.svelte'
-import Update from './routes/login/Update.svelte'
 
 // profile
 import Profile from './routes/profile/Profile.svelte'
@@ -44,7 +43,6 @@ export default {
 
     '/login': Login,
     '/login/verify-code': VerifyLoginCode,
-    '/login/update': Update,
 
     '/student/:subjectKey': Subject,
 
