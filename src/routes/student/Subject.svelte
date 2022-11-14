@@ -83,6 +83,7 @@
     position: fixed;
     top: 0;
     right: 5px;
+    z-index: 7;
   }
 
   #reload img {
