@@ -1,5 +1,5 @@
 <script>
-	import Router, {push} from 'svelte-spa-router';
+	import Router, {pop, push} from 'svelte-spa-router';
 	import routes from './routes';
 
 	import {token, info, now, interval, school, showUpdate} from './stores';
@@ -10,6 +10,12 @@
 	let mobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       navigator.userAgent
     );
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape') {
+			pop()
+		}
+	})
 
 	onMount(() => {
 		token.set(localStorage.getItem('token'))
