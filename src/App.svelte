@@ -33,7 +33,7 @@
 	// showing login update
 	setInterval(() => {
 		$showUpdate = true
-	}, 3 * 60 * 1000) // 3 minutes in ms
+	}, 2 * 60 * 1000) // 2 minutes in ms
 </script>
 
 <main>
