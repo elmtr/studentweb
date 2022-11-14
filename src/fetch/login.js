@@ -1,7 +1,7 @@
 import axios from "axios"
 import { push } from "svelte-spa-router";
 import { config, tokenConfig, apiURL } from '../axiosConfig';
-import {token, info, errorMessage, phoneNumber, loading, showUpdate} from '../stores'
+import {token, info, errorMessage, phoneNumber, loading, showUpdate, now, loginTime} from '../stores'
 import {get} from 'svelte/store'
 
 export async function login(phone, password) {
@@ -53,6 +53,9 @@ export async function loginUpdate(phone, passcode) {
     )
     loading.set(false)
     showUpdate.set(false)
+
+    let d = new Date()
+    loginTime.set(d.getHours() + d.getMinutes() / 100)
 
     localStorage.setItem("info", JSON.stringify(data.student))
     token.set(data.token)

@@ -27,6 +27,7 @@ export const loading = writable(false)
 export const errorMessage = writable("")
 export const warningMessage = writable("")
 
+export const loginTime = writable()
 
 // authentication and authorization
 export const token = writable("");

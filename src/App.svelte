@@ -2,7 +2,7 @@
 	import Router, {pop, push} from 'svelte-spa-router';
 	import routes from './routes';
 
-	import {token, info, now, interval, school, showUpdate} from './stores';
+	import {token, info, now, interval, school, showUpdate, loginTime} from './stores';
 	import {onMount} from 'svelte';
   import { findInterval } from './utils/utils'
   import Update from './kiui/PopUps/Update.svelte'
@@ -31,15 +31,19 @@
 		let d = new Date()
 		$now = (d.getHours() + d.getMinutes() / 100).toFixed(2)
 
+		let diff = Math.round(
+			(Number($now) - $loginTime)
+			* 100 
+		) / 100
+
+		if (diff >= 0.02) {
+			$showUpdate = true
+		}
+
 		if ($school) {
 			$interval = findInterval($school.intervals, $now)
 		}
 	}, 5000)
-
-	// showing login update
-	setInterval(() => {
-		$showUpdate = true
-	}, 2 * 60 * 1000) // 2 minutes in ms
 </script>
 
 <main>
@@ -49,9 +53,11 @@
 			<br><br> din păcate, va trebui sa folosești un telefon</div>
 		</div>
 	{/if}
-	{#if $info && !$token}
+
+	{#if $info}
 		<Update />
 	{/if}
+
 	<div style="width: var(--container); margin: auto;">
 		<Router {routes} />
 	</div>
