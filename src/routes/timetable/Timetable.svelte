@@ -51,7 +51,7 @@
     width: var(--container);
     position: fixed;
     background: var(--offwhite);
-    z-index: 10;
+    z-index: 5;
   }
 
   #spacing {
