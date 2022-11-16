@@ -14,7 +14,7 @@
   import { onMount } from 'svelte'
     import { writable } from 'svelte/store'
 
-  let phone = "0723010405"
+  let phone = ""
   let active = false
   $: {
     if (phone.length === 10) {

@@ -18,13 +18,11 @@
 
   let reqLength = false
   let reqDigit = false
-  let reqSpecialChar = false
 
   $: {
     if (password === checkPassword 
       && password !== "" 
       && reqDigit 
-      && reqSpecialChar 
       && reqLength
     ) {
       active = true
