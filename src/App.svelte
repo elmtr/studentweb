@@ -29,14 +29,14 @@
 	// updating time
 	setInterval(() => {
 		let d = new Date()
-		$now = (d.getHours() + d.getMinutes() / 100 + 0.01).toFixed(2)
+		$now = (d.getHours() + d.getMinutes() / 100).toFixed(2)
 
 		let diff = Math.round(
 			(Number($now) - $loginTime)
 			* 100 
 		) / 100
 
-		if (diff >= 0.01) {
+		if (diff >= 0.02) {
 			$showUpdate = true
 			$token = ""
 		}

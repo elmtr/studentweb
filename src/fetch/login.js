@@ -36,7 +36,7 @@ export async function loginVerifyCode(code) {
     localStorage.setItem('info', JSON.stringify(data.student))
     info.set(data.student)
 
-    push('/login/update')
+    push('/')
   } catch(error) {
     errorMessage.set(error.response.data.message)
     loading.set(false)
