@@ -27,5 +27,13 @@
 		</style>
 	</head>
 
-	<body></body>
+	<body>
+		<script>
+			var viewport = document.querySelector('meta[name=viewport]')
+      viewport.setAttribute(
+        'content',
+        viewport.content + ', height=' + innerHeight
+      )
+		</script>
+	</body>
 </html>
